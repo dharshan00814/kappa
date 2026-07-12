@@ -869,7 +869,7 @@ tbody tr:last-child td{border-bottom:none;}
 </div>
 </div>
 
-<button class="fab" id="fabBtn" onclick="openQuickActions()">
+<button class="fab" id="fabBtn" onclick="openQuickActions()" style="display:none">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M12 5v14M5 12h14"/></svg>
 </button>
 
@@ -922,6 +922,7 @@ function doLogin(){
   document.getElementById('topAvatar').textContent = currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2);
   document.getElementById('topName').textContent = currentUser.name;
   document.getElementById('topRole').textContent = currentUser.role;
+  document.getElementById('fabBtn').style.display='flex';
   buildNav();
   navigate(currentRole==='owner' ? 'dashboard' : 'packing');
   renderAll();
@@ -932,6 +933,7 @@ function doLogin(){
 function logout(){
   document.getElementById('app').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('fabBtn').style.display='none';
   closeAllDropdowns();
 }
 
