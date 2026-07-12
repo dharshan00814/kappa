@@ -229,6 +229,7 @@ button{font-family:inherit;cursor:pointer;}
 .profile-menu a, .profile-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:9px 10px;border-radius:10px;font-size:13px;font-weight:600;color:var(--text);background:transparent;border:none;text-align:left;}
 .profile-menu a:hover, .profile-menu button:hover{background:var(--glass);}
 .topbar-rel{position:relative;}
+/*-----------logo-------*/
 
 /* ---------- Dashboard cards ---------- */
 .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-bottom:26px;}
@@ -370,11 +371,106 @@ tbody tr:last-child td{border-bottom:none;}
 .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
-@media(max-width:900px){.grid-4,.grid-3,.grid-2{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:560px){.grid-4,.grid-3,.grid-2{grid-template-columns:1fr;}.shell{grid-template-columns:1fr;}.sidebar{position:fixed;left:-280px;width:260px;transition:left .3s ease;}.sidebar.open{left:0;}}
+/* ===== RESPONSIVE ===== */
 
+/* Tablet (≤900px) */
+@media(max-width:900px){
+  .shell{grid-template-columns:260px 1fr;}
+  .grid-4{grid-template-columns:repeat(2,1fr);}
+  .grid-3{grid-template-columns:repeat(2,1fr);}
+  .grid-2{grid-template-columns:repeat(2,1fr);}
+  .section-grid{grid-template-columns:1fr;}
+  .packing-cols{grid-template-columns:1fr 1fr;gap:14px;}
+  .product-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));}
+  .stat-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* Mobile (≤640px) */
+@media(max-width:640px){
+  /* Shell & Sidebar */
+  .shell{grid-template-columns:1fr;}
+  .sidebar{
+    position:fixed;left:-280px;width:260px;
+    transition:left .3s ease;z-index:50;
+    height:100vh;overflow-y:auto;
+  }
+  .sidebar.open{left:0;}
+
+  /* Topbar */
+  .topbar{padding:12px 14px;gap:10px;flex-wrap:wrap;}
+  .topbar .page-title{font-size:16px;}
+  .topbar .page-sub{display:none;}
+  .search-global{display:none;}
+  .topbar-actions{gap:8px;}
+  .profile-btn .pname,.profile-btn .prole{display:none;}
+  .profile-btn{padding:6px;}
+
+  /* Content */
+  .content{padding:16px 14px 80px;}
+
+  /* Grids */
+  .grid-4,.grid-3,.grid-2{grid-template-columns:1fr;}
+  .stat-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+  .section-grid{grid-template-columns:1fr;gap:14px;}
+  .packing-cols{grid-template-columns:1fr;}
+  .product-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;}
+
+  /* Stat cards */
+  .stat-card{padding:14px;}
+  .stat-card .s-value{font-size:20px;}
+
+  /* Tables */
+  .table-wrap{border-radius:12px;}
+  table{min-width:600px;}
+
+  /* Toolbar */
+  .toolbar{gap:8px;}
+  .toolbar .filter-pill{font-size:11.5px;padding:7px 11px;}
+  .search-box{min-width:160px;}
+
+  /* Panels */
+  .panel{padding:16px;}
+  .panel-head h3{font-size:14px;}
+
+  /* Packing */
+  .pack-card{padding:12px;}
+
+  /* Login box */
+  .login-box{padding:30px 22px;}
+
+  /* Toast */
+  .toast-wrap{top:12px;right:12px;left:12px;}
+  .toast{min-width:unset;width:100%;}
+
+  /* FAB */
+  .fab{bottom:20px;right:16px;width:50px;height:50px;}
+
+  /* Clock */
+  .clock-display{font-size:28px;}
+  .attend-card{flex-direction:column;align-items:flex-start;gap:14px;}
+
+  /* KPI mini row */
+  .grid-4[style*="margin-bottom"]{gap:10px;}
+}
+
+/* Very small (≤400px) */
+@media(max-width:400px){
+  .stat-grid{grid-template-columns:1fr;}
+  .product-grid{grid-template-columns:1fr;}
+  .topbar-actions .icon-btn:not(:last-child){display:none;}
+}
+
+/* Hamburger: hidden on desktop, shown on mobile */
 .hamburger{display:none;}
-@media(max-width:560px){.hamburger{display:flex;}}
+@media(max-width:640px){.hamburger{display:flex;}}
+
+/* Sidebar overlay backdrop */
+.sidebar-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,0.45);backdrop-filter:blur(2px);
+  z-index:49;
+}
+.sidebar-overlay.open{display:block;}
 
 /* checkbox input styling for settings toggle */
 .toggle{position:relative;width:44px;height:25px;border-radius:99px;background:var(--surface2);border:1px solid var(--border);cursor:pointer;flex-shrink:0;}
@@ -410,17 +506,16 @@ tbody tr:last-child td{border-bottom:none;}
 
     <div class="field">
       <label>Email address</label>
-      <input type="email" id="loginEmail" placeholder="owner@kappa.com" value="owner@kappa.com">
+      <input type="email" id="loginEmail" placeholder="your@email.com">
     </div>
     <div class="field">
       <label>Password</label>
-      <input type="password" id="loginPass" placeholder="••••••••" value="kappa123">
+      <input type="password" id="loginPass" placeholder="••••••••">
     </div>
     <button class="btn btn-primary login-submit" onclick="doLogin()">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
       Sign In
     </button>
-    <p class="login-hint">Demo credentials are pre-filled — just hit Sign In</p>
   </div>
 </div>
 
@@ -431,7 +526,12 @@ tbody tr:last-child td{border-bottom:none;}
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="k-logo">
-      <div class="k-mark">K</div>
+      <div class="k-logo">
+    <img src="assets/images/logo.png" alt="Kappa Logo" class="logo-img">
+    <div>
+        <h1 style="margin-top:0;">Kappa</h1>
+    </div>
+</div>
       <div><h2>Kappa</h2><span>Admin Console</span></div>
     </div>
 
@@ -445,10 +545,13 @@ tbody tr:last-child td{border-bottom:none;}
     </div>
   </aside>
 
+  <!-- Sidebar overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
   <!-- MAIN -->
   <div class="main">
     <div class="topbar">
-      <button class="hamburger icon-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">
+      <button class="hamburger icon-btn" onclick="toggleSidebar()">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
       </button>
       <div>
@@ -780,119 +883,27 @@ tbody tr:last-child td{border-bottom:none;}
 <script>
 /* ============================================================
    KAPPA CLOTHING STORE — ADMIN DASHBOARD
-   Vanilla JS SPA, dummy JSON data, no backend
+   Vanilla JS SPA, no backend
 ============================================================ */
 
-/* ---------------- Dummy Data ---------------- */
+/* ---------------- Data ---------------- */
 const CATEGORY_ICON = {Men:'👕',Women:'👗',Kids:'🧒',Accessories:'🕶️',Shoes:'👟'};
 const COLORS_MAP = {Black:'#111',White:'#eee',Yellow:'#FFD400',Red:'#ff5470',Blue:'#5aa9ff',Green:'#3ddc84',Grey:'#888',Beige:'#d8c3a5'};
 
-const customersData = [
-  {id:'C1001',name:'Ananya Sharma',phone:'98765 43210',city:'Mumbai',orders:14,spent:48200,points:820,wishlist:['Oversized Hoodie','Denim Jacket'],reward:'Gold'},
-  {id:'C1002',name:'Rohan Kapoor',phone:'91234 56780',city:'Delhi',orders:6,spent:15400,points:210,wishlist:['Cargo Pants'],reward:'Silver'},
-  {id:'C1003',name:'Priya Nair',phone:'99887 66554',city:'Bengaluru',orders:22,spent:76300,points:1540,wishlist:['Kurti Set','Skirt'],reward:'Platinum'},
-  {id:'C1004',name:'Karan Malhotra',phone:'90011 22334',city:'Pune',orders:3,spent:5600,points:60,wishlist:[],reward:'Bronze'},
-  {id:'C1005',name:'Sneha Reddy',phone:'98123 45670',city:'Hyderabad',orders:9,spent:29800,points:410,wishlist:['Dress','Top'],reward:'Silver'},
-  {id:'C1006',name:'Vikram Singh',phone:'97456 12398',city:'Jaipur',orders:17,spent:61200,points:990,wishlist:['Jeans'],reward:'Gold'},
-];
-
-const productsData = [
-  {sku:'KP-MEN-TS-001',name:'Classic Crew T-Shirt',cat:'Men',brand:'Kappa Sport',mrp:1299,price:899,stock:142,sizes:['S','M','L','XL'],colors:['Black','White','Yellow'],barcode:'8901234501'},
-  {sku:'KP-MEN-HD-002',name:'Logo Pullover Hoodie',cat:'Men',brand:'Kappa Sport',mrp:2999,price:2199,stock:8,sizes:['M','L','XL'],colors:['Black','Grey'],barcode:'8901234502'},
-  {sku:'KP-MEN-CP-003',name:'Utility Cargo Pants',cat:'Men',brand:'Kappa Urban',mrp:2499,price:1899,stock:56,sizes:['30','32','34','36'],colors:['Beige','Black'],barcode:'8901234503'},
-  {sku:'KP-MEN-JK-004',name:'Windbreaker Jacket',cat:'Men',brand:'Kappa Sport',mrp:3499,price:2799,stock:0,sizes:['M','L','XL'],colors:['Yellow','Black'],barcode:'8901234504'},
-  {sku:'KP-MEN-JN-005',name:'Slim Fit Jeans',cat:'Men',brand:'Kappa Denim',mrp:2199,price:1699,stock:73,sizes:['30','32','34'],colors:['Blue','Black'],barcode:'8901234505'},
-  {sku:'KP-WMN-KR-006',name:'Printed Kurti Set',cat:'Women',brand:'Kappa Ethnic',mrp:1899,price:1399,stock:34,sizes:['S','M','L'],colors:['Red','Beige'],barcode:'8901234506'},
-  {sku:'KP-WMN-TP-007',name:'Ribbed Crop Top',cat:'Women',brand:'Kappa Sport',mrp:999,price:749,stock:6,sizes:['S','M','L'],colors:['White','Black'],barcode:'8901234507'},
-  {sku:'KP-WMN-DR-008',name:'Floral Wrap Dress',cat:'Women',brand:'Kappa Studio',mrp:2799,price:2099,stock:19,sizes:['S','M','L','XL'],colors:['Green','White'],barcode:'8901234508'},
-  {sku:'KP-WMN-SK-009',name:'Pleated Midi Skirt',cat:'Women',brand:'Kappa Studio',mrp:1599,price:1199,stock:41,sizes:['S','M','L'],colors:['Black','Yellow'],barcode:'8901234509'},
-  {sku:'KP-WMN-HD-010',name:'Oversized Hoodie',cat:'Women',brand:'Kappa Sport',mrp:2599,price:1999,stock:3,sizes:['S','M','L'],colors:['Grey','Black'],barcode:'8901234510'},
-  {sku:'KP-KID-TS-011',name:'Kids Graphic Tee',cat:'Kids',brand:'Kappa Junior',mrp:699,price:499,stock:88,sizes:['4Y','6Y','8Y'],colors:['Yellow','Blue'],barcode:'8901234511'},
-  {sku:'KP-KID-SH-012',name:'Kids Cargo Shorts',cat:'Kids',brand:'Kappa Junior',mrp:899,price:649,stock:52,sizes:['4Y','6Y','8Y'],colors:['Beige','Green'],barcode:'8901234512'},
-  {sku:'KP-ACC-CP-013',name:'Logo Snapback Cap',cat:'Accessories',brand:'Kappa Sport',mrp:799,price:599,stock:110,sizes:['Free'],colors:['Black','Yellow'],barcode:'8901234513'},
-  {sku:'KP-ACC-BG-014',name:'Utility Sling Bag',cat:'Accessories',brand:'Kappa Urban',mrp:1499,price:1099,stock:4,sizes:['Free'],colors:['Black'],barcode:'8901234514'},
-  {sku:'KP-SHO-SN-015',name:'Retro Court Sneakers',cat:'Shoes',brand:'Kappa Sport',mrp:3999,price:3199,stock:27,sizes:['7','8','9','10'],colors:['White','Yellow'],barcode:'8901234515'},
-  {sku:'KP-SHO-SL-016',name:'Slide Sandals',cat:'Shoes',brand:'Kappa Sport',mrp:1299,price:899,stock:0,sizes:['7','8','9','10'],colors:['Black','White'],barcode:'8901234516'},
-];
-
+const customersData = [];
+const productsData = [];
 const courierList = ['Delhivery','BlueDart','Ekart','DTDC','XpressBees'];
 const statuses = ['Pending','Confirmed','Packing','Shipped','Delivered','Cancelled','Returned'];
 function rand(arr){return arr[Math.floor(Math.random()*arr.length)];}
 function randInt(a,b){return Math.floor(Math.random()*(b-a+1))+a;}
 
 const ordersData = [];
-for(let i=1;i<=48;i++){
-  const p = rand(productsData);
-  const cust = rand(customersData);
-  const st = i<=6 ? statuses[i%3===0?0:(i%2===0?1:2)] : rand(statuses);
-  const day = randInt(1,12);
-  ordersData.push({
-    id:'KP'+(10230+i),
-    customer:cust.name,
-    mobile:'+91 '+cust.phone,
-    product:p.name,
-    category:p.cat,
-    size:rand(p.sizes),
-    color:rand(p.colors),
-    qty:randInt(1,3),
-    payment: Math.random()>0.3 ? 'Paid' : (Math.random()>0.5?'COD':'Unpaid'),
-    status: st,
-    courier: rand(courierList),
-    tracking: 'TRK'+randInt(100000,999999),
-    date: `2026-07-${String(day).padStart(2,'0')}`,
-    price: p.price
-  });
-}
-
-const cartData = [
-  {name:'Isha Verma',products:['Oversized Hoodie','Denim Jacket'],qty:2,value:4198,last:'3 mins ago',status:'active'},
-  {name:'Aditya Rao',products:['Retro Court Sneakers'],qty:1,value:3199,last:'12 mins ago',status:'active'},
-  {name:'Meera Joshi',products:['Kurti Set','Pleated Skirt'],qty:2,value:2598,last:'2 hrs ago',status:'abandoned'},
-  {name:'Farhan Ali',products:['Slim Fit Jeans','Logo Cap'],qty:2,value:2298,last:'5 hrs ago',status:'abandoned'},
-  {name:'Divya Menon',products:['Floral Wrap Dress'],qty:1,value:2099,last:'20 mins ago',status:'active'},
-  {name:'Sameer Khan',products:['Windbreaker Jacket','Cargo Pants'],qty:2,value:4698,last:'1 day ago',status:'abandoned'},
-];
-
-const employeesData = [
-  {name:'Ravi Kumar',role:'Packer',section:'Men',status:'Clocked In',packed:18,perf:92,phone:'90011 22221'},
-  {name:'Sunita Devi',role:'Packer',section:'Women',status:'Clocked In',packed:22,perf:96,phone:'90011 22222'},
-  {name:'Manoj Tiwari',role:'Inventory',section:'Warehouse',status:'On Break',packed:0,perf:88,phone:'90011 22223'},
-  {name:'Kavya Iyer',role:'Packer',section:'Kids',status:'Clocked In',packed:14,perf:90,phone:'90011 22224'},
-  {name:'Deepak Yadav',role:'QC',section:'Men',status:'Clocked Out',packed:9,perf:85,phone:'90011 22225'},
-];
-
-const returnsData = [
-  {id:'RT2001',orderId:'KP10241',customer:'Rohan Kapoor',product:'Slim Fit Jeans',reason:'Size mismatch',status:'Approved',refund:1699,date:'2026-07-08'},
-  {id:'RT2002',orderId:'KP10236',customer:'Sneha Reddy',product:'Ribbed Crop Top',reason:'Quality issue',status:'Pending',refund:749,date:'2026-07-09'},
-  {id:'RT2003',orderId:'KP10250',customer:'Karan Malhotra',product:'Windbreaker Jacket',reason:'Wrong item',status:'Rejected',refund:0,date:'2026-07-10'},
-  {id:'RT2004',orderId:'KP10229',customer:'Vikram Singh',product:'Retro Court Sneakers',reason:'Changed mind',status:'Approved',refund:3199,date:'2026-07-11'},
-];
-
-const couponsData = [
-  {code:'KAPPA20',type:'Percentage',value:'20%',min:1999,used:342,expiry:'2026-08-31',active:true},
-  {code:'FREESHIP',type:'Shipping',value:'Free Delivery',min:999,used:891,expiry:'2026-07-31',active:true},
-  {code:'NEW10',type:'Percentage',value:'10%',min:0,used:1204,expiry:'2026-12-31',active:true},
-  {code:'SUMMER500',type:'Flat',value:'₹500',min:3000,used:156,expiry:'2026-07-20',active:false},
-];
-
-const notifData = [
-  {ic:'🛍️',color:'#3ddc84',title:'New order #KP10278 received',time:'2 mins ago'},
-  {ic:'💳',color:'#5aa9ff',title:'Payment received for #KP10275',time:'14 mins ago'},
-  {ic:'⚠️',color:'#ff5470',title:'Low stock: Oversized Hoodie (3 left)',time:'40 mins ago'},
-  {ic:'↩️',color:'#ffb800',title:'Return request from Sneha Reddy',time:'1 hr ago'},
-  {ic:'⏱️',color:'#ff5470',title:'Packing delay on order #KP10260',time:'2 hrs ago'},
-  {ic:'🚚',color:'#b198ff',title:'Courier pickup scheduled — BlueDart',time:'3 hrs ago'},
-  {ic:'🛍️',color:'#3ddc84',title:'New order #KP10277 received',time:'3 hrs ago'},
-  {ic:'📦',color:'#FFD400',title:'Incoming stock: 200 units arrived',time:'5 hrs ago'},
-];
-
-const tasksData = [
-  {task:'Pack 12 orders for Men\'s section',done:true},
-  {task:'Quality check — Hoodie batch #44',done:true},
-  {task:'Print shipping labels for Women\'s queue',done:false},
-  {task:'Restock shelf B4 with new sneakers',done:false},
-  {task:'Seal & handover packed orders to courier',done:false},
-];
+const cartData = [];
+const employeesData = [];
+const returnsData = [];
+const couponsData = [];
+const notifData = [];
+const tasksData = [];
 
 /* ---------------- Auth ---------------- */
 let currentRole = 'owner';
@@ -902,8 +913,6 @@ function setLoginRole(role){
   currentRole = role;
   document.querySelectorAll('.role-toggle button').forEach(b=>b.classList.remove('active'));
   document.querySelector(`.role-toggle button[data-role="${role}"]`).classList.add('active');
-  const email = document.getElementById('loginEmail');
-  if(role==='owner'){ email.value='owner@kappa.com'; } else { email.value='ravi.packer@kappa.com'; }
 }
 
 function doLogin(){
@@ -1008,7 +1017,7 @@ function navigate(id){
   document.getElementById('pageTitle').textContent = meta[0];
   document.getElementById('pageSub').textContent = meta[1];
   document.getElementById('fabBtn').style.display = (id==='dashboard'||id==='orders'||id==='products') ? 'flex' : 'flex';
-  document.getElementById('sidebar').classList.remove('open');
+  closeSidebar();
   closeAllDropdowns();
   if(id==='analytics') setTimeout(renderAnalyticsCharts,50);
 }
@@ -1035,6 +1044,19 @@ function closeAllDropdowns(){
 document.addEventListener('click',e=>{
   if(!e.target.closest('.topbar-rel')) closeAllDropdowns();
 });
+
+/* ---------------- Sidebar (mobile) ---------------- */
+function toggleSidebar(){
+  const sb = document.getElementById('sidebar');
+  const ov = document.getElementById('sidebarOverlay');
+  const isOpen = sb.classList.contains('open');
+  sb.classList.toggle('open', !isOpen);
+  ov.classList.toggle('open', !isOpen);
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
 
 /* ---------------- Toasts ---------------- */
 function toast(msg, icon='✅'){
@@ -1079,17 +1101,16 @@ function animateCounter(el, target, prefix='', suffix='', dur=1000){
    DASHBOARD
 ============================================================ */
 function renderDashboard(){
-  const todayOrders = ordersData.filter(o=>o.date==='2026-07-12').length || 27;
   const stats = [
-    {label:"Today's Sales", val:186400, prefix:'₹', trend:'+12.4%', up:true, icon:'💰'},
-    {label:"Today's Orders", val:34, prefix:'', trend:'+8.1%', up:true, icon:'🛍️'},
-    {label:'Pending Orders', val: ordersData.filter(o=>o.status==='Pending').length, prefix:'', trend:'-3.2%', up:false, icon:'⏳'},
-    {label:'Packed Orders', val: ordersData.filter(o=>o.status==='Packing').length, prefix:'', trend:'+5.6%', up:true, icon:'📦'},
-    {label:'Delivered Orders', val: ordersData.filter(o=>o.status==='Delivered').length, prefix:'', trend:'+9.0%', up:true, icon:'✅'},
-    {label:'Cancelled Orders', val: ordersData.filter(o=>o.status==='Cancelled').length, prefix:'', trend:'-1.1%', up:true, icon:'❌'},
-    {label:'Total Customers', val: customersData.length*38, prefix:'', trend:'+4.4%', up:true, icon:'👥'},
-    {label:'Total Revenue', val: 2481500, prefix:'₹', trend:'+18.2%', up:true, icon:'📈'},
-    {label:"Today's Profit", val: 52300, prefix:'₹', trend:'+6.7%', up:true, icon:'💎'},
+    {label:"Today's Sales", val:0, prefix:'₹', trend:'—', up:true, icon:'💰'},
+    {label:"Today's Orders", val:0, prefix:'', trend:'—', up:true, icon:'🛍️'},
+    {label:'Pending Orders', val: ordersData.filter(o=>o.status==='Pending').length, prefix:'', trend:'—', up:false, icon:'⏳'},
+    {label:'Packed Orders', val: ordersData.filter(o=>o.status==='Packing').length, prefix:'', trend:'—', up:true, icon:'📦'},
+    {label:'Delivered Orders', val: ordersData.filter(o=>o.status==='Delivered').length, prefix:'', trend:'—', up:true, icon:'✅'},
+    {label:'Cancelled Orders', val: ordersData.filter(o=>o.status==='Cancelled').length, prefix:'', trend:'—', up:true, icon:'❌'},
+    {label:'Total Customers', val: customersData.length, prefix:'', trend:'—', up:true, icon:'👥'},
+    {label:'Total Revenue', val:0, prefix:'₹', trend:'—', up:true, icon:'📈'},
+    {label:"Today's Profit", val:0, prefix:'₹', trend:'—', up:true, icon:'💎'},
   ];
   const grid = document.getElementById('statGrid');
   grid.innerHTML = stats.map(s=>`
@@ -1108,26 +1129,17 @@ function renderDashboard(){
   });
 
   // activity feed
-  const acts = [
-    {c:'#3ddc84',t:'Order #KP10278 marked as Delivered',time:'2 mins ago'},
-    {c:'#5aa9ff',t:'Payment of ₹2,199 received from Rohan Kapoor',time:'10 mins ago'},
-    {c:'#FFD400',t:'New order #KP10279 placed by Priya Nair',time:'22 mins ago'},
-    {c:'#ff5470',t:'Stock alert: Oversized Hoodie running low',time:'40 mins ago'},
-    {c:'#b198ff',t:'Order #KP10260 packed by Sunita Devi',time:'1 hr ago'},
-  ];
-  document.getElementById('activityFeed').innerHTML = acts.map(a=>`
-    <div class="activity-row"><div class="a-dot" style="background:${a.c}"></div><div><div class="a-text">${a.t}</div><div class="a-time">${a.time}</div></div></div>
-  `).join('');
+  document.getElementById('activityFeed').innerHTML = `<div class="empty-state"><div class="e-ic">📭</div><h4>No recent activity</h4></div>`;
 
   // top products
-  const top = productsData.slice(0,5).sort((a,b)=>b.price-a.price);
-  document.getElementById('topProducts').innerHTML = top.map((p,i)=>`
+  const top = [...productsData].sort((a,b)=>b.price-a.price).slice(0,5);
+  document.getElementById('topProducts').innerHTML = top.length ? top.map(p=>`
     <div class="activity-row" style="align-items:center;">
       <div style="width:40px;height:40px;border-radius:10px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:18px;">${CATEGORY_ICON[p.cat]}</div>
       <div style="flex:1;"><div class="a-text">${p.name}</div><div class="a-time">${p.cat} · SKU ${p.sku}</div></div>
       <div style="font-weight:700;font-family:'Space Grotesk';">₹${p.price}</div>
     </div>
-  `).join('');
+  `).join('') : `<div class="empty-state"><div class="e-ic">📦</div><h4>No products yet</h4></div>`;
 
   // status breakdown
   const counts = {}; statuses.forEach(s=>counts[s]=0);
@@ -1135,7 +1147,7 @@ function renderDashboard(){
   const total = ordersData.length;
   const chipClass = {Pending:'pending',Confirmed:'confirmed',Packing:'packing',Shipped:'shipped',Delivered:'delivered',Cancelled:'cancelled',Returned:'returned'};
   document.getElementById('statusBreakdown').innerHTML = statuses.map(s=>{
-    const pct = Math.round((counts[s]/total)*100);
+    const pct = total ? Math.round((counts[s]/total)*100) : 0;
     return `<div style="margin-bottom:12px;">
       <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:6px;">
         <span class="chip chip-${chipClass[s]}">${s}</span><span class="cell-mute">${counts[s]} orders</span>
@@ -1151,10 +1163,20 @@ function renderDashboard(){
 function renderRevChart(range){
   const svg = document.getElementById('revChart');
   let data;
-  if(range==='week') data=[42,58,49,71,66,84,93];
-  else if(range==='month') data=[38,45,42,55,60,58,66,70,64,72,80,88,84,90,95,99,92,101,97,105,110,108,115,120,118,124,130,127,133,140];
-  else data=[62,68,71,75,80,78,85,90,88,95,99,105];
-  const w=600,h=220,pad=20;
+  if(range==='week') data=[0,0,0,0,0,0,0];
+  else if(range==='month') data=Array(30).fill(0);
+  else data=Array(12).fill(0);
+.k-logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-img{
+    width:50px;
+    height:50px;
+    object-fit:contain;
+}  const w=600,h=220,pad=20;
   const max = Math.max(...data), min=Math.min(...data);
   const step = (w-pad*2)/(data.length-1);
   let points = data.map((d,i)=>{
@@ -1614,9 +1636,9 @@ function openCouponModal(){
 function renderAnalyticsCharts(){
   const bar = document.getElementById('analyticsBar');
   const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  const vals=[62,58,70,68,80,75,88,92,85,98,105,120];
+  const vals=Array(12).fill(0);
   const w=600,h=240,pad=30,bw=(w-pad*2)/vals.length*0.6, gap=(w-pad*2)/vals.length;
-  const max=Math.max(...vals);
+  const max=Math.max(...vals)||1;
   let bars = vals.map((v,i)=>{
     const bh = (v/max)*(h-pad*2);
     const x = pad+i*gap+((gap-bw)/2);
@@ -1628,9 +1650,9 @@ function renderAnalyticsCharts(){
 
   const line = document.getElementById('ordersLine');
   const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const ov=[24,31,28,40,38,52,47];
+  const ov=Array(7).fill(0);
   const w2=600,h2=200,pad2=24;
-  const max2=Math.max(...ov), min2=Math.min(...ov);
+  const max2=Math.max(...ov)||1, min2=Math.min(...ov);
   const step2=(w2-pad2*2)/(ov.length-1);
   const pts = ov.map((v,i)=>[pad2+i*step2, h2-pad2-((v-min2)/(max2-min2||1))*(h2-pad2*2)]);
   let path2 = 'M'+pts.map(p=>p.join(',')).join(' L');
@@ -1638,7 +1660,7 @@ function renderAnalyticsCharts(){
    ${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="4" fill="#0a0a0b" stroke="#FFD400" stroke-width="2.5"/><text x="${p[0]}" y="${h2-4}" text-anchor="middle" font-size="10" fill="var(--k-mute-2)">${days[i]}</text>`).join('')}`;
 
   const cats = ['Men','Women','Kids','Accessories','Shoes'];
-  const catVals = [38,34,12,9,7];
+  const catVals = [0,0,0,0,0];
   const catColors=['#FFD400','#FFB800','#5aa9ff','#b198ff','#3ddc84'];
   document.getElementById('catBreakdown').innerHTML = cats.map((c,i)=>`
     <div style="margin-bottom:14px;">
@@ -1648,13 +1670,13 @@ function renderAnalyticsCharts(){
   `).join('');
 
   const top = [...productsData].sort((a,b)=>b.price-a.price).slice(0,5);
-  document.getElementById('analyticsTopProducts').innerHTML = top.map(p=>`
+  document.getElementById('analyticsTopProducts').innerHTML = top.length ? top.map(p=>`
     <div class="activity-row" style="align-items:center;">
       <div style="width:40px;height:40px;border-radius:10px;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:18px;">${CATEGORY_ICON[p.cat]}</div>
-      <div style="flex:1;"><div class="a-text">${p.name}</div><div class="a-time">${randInt(40,220)} units sold</div></div>
-      <div style="font-weight:700;font-family:'Space Grotesk';">₹${(p.price*randInt(40,220)/1000).toFixed(1)}K</div>
+      <div style="flex:1;"><div class="a-text">${p.name}</div><div class="a-time">0 units sold</div></div>
+      <div style="font-weight:700;font-family:'Space Grotesk';">₹0K</div>
     </div>
-  `).join('');
+  `).join('') : `<div class="empty-state"><div class="e-ic">📊</div><h4>No data yet</h4></div>`;
 }
 
 /* ============================================================
