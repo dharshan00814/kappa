@@ -146,6 +146,8 @@ button{font-family:inherit;cursor:pointer;}
 }
 .k-logo{display:flex;align-items:center;gap:12px;margin-bottom:8px;}
 .k-mark{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,var(--k-yellow),var(--k-yellow-2));display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk';font-weight:700;font-size:22px;color:#0a0a0b;box-shadow:0 8px 24px -6px rgba(255,212,0,0.6);}
+.login-logo-img{display:block;margin:0 auto;height:70px;width:auto;border-radius:14px;object-fit:contain;}
+.sidebar-logo-img{width:34px;height:34px;border-radius:10px;object-fit:contain;flex-shrink:0;}
 .login-box h1{color:#fff;font-size:24px;font-weight:700;margin-top:22px;}
 .login-box p.sub{color:var(--k-mute);font-size:13.5px;margin-top:6px;margin-bottom:28px;}
 .role-toggle{display:flex;gap:8px;background:rgba(255,255,255,0.04);padding:5px;border-radius:14px;border:1px solid rgba(255,255,255,0.07);margin-bottom:22px;}
@@ -206,7 +208,7 @@ button{font-family:inherit;cursor:pointer;}
 .icon-btn .dot{position:absolute;top:8px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--k-red);border:2px solid var(--bg);}
 .profile-btn{display:flex;align-items:center;gap:9px;padding:6px 12px 6px 6px;border-radius:12px;background:var(--surface2);border:1px solid var(--border);}
 .avatar{width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--k-yellow),var(--k-yellow-2));display:flex;align-items:center;justify-content:center;font-weight:700;color:#0a0a0b;font-size:12.5px;font-family:'Space Grotesk';}
-.profile-btn .pname{font-size:12.8px;font-weight:600;line-height:1.1;}
+.profile-btn .pname{font-size:12.8px;font-weight:600;line-height:1.1; }
 .profile-btn .prole{font-size:10.5px;color:var(--mute);}
 
 .content{padding:26px 28px 60px;flex:1;}
@@ -495,9 +497,9 @@ tbody tr:last-child td{border-bottom:none;}
 <div id="loginScreen">
   <div class="login-grid"></div>
   <div class="login-box">
-    <div class="k-logo"><div class="k-mark">K</div><div><h1 style="margin-top:0;">Kappa</h1></div></div>
-    <h1>Welcome back</h1>
-    <p class="sub">Sign in to manage your store</p>
+    <img src="assets/images/logo.jpg" alt="Kappa Logo" class="login-logo-img">
+    <h1 style="margin-top:10px;">Kappa</h1>
+    <p class="sub">Premium Clothing Store</p>
 
     <div class="role-toggle">
       <button class="active" data-role="owner" onclick="setLoginRole('owner')">Owner</button>
@@ -526,13 +528,11 @@ tbody tr:last-child td{border-bottom:none;}
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="k-logo">
-      <div class="k-logo">
-    <img src="assets/images/logo.png" alt="Kappa Logo" class="logo-img">
-    <div>
-        <h1 style="margin-top:0;">Kappa</h1>
-    </div>
-</div>
-      <div><h2>Kappa</h2><span>Admin Console</span></div>
+      <img src="assets/images/logo.jpg" alt="Kappa Logo" class="sidebar-logo-img">
+      <div>
+        <h2>Kappa</h2>
+        <span>Admin Console</span>
+      </div>
     </div>
 
     <div id="navList"></div>
@@ -907,7 +907,7 @@ const tasksData = [];
 
 /* ---------------- Auth ---------------- */
 let currentRole = 'owner';
-let currentUser = {name:'Arjun Mehta',role:'Owner'};
+let currentUser = {name:'Rasheed',role:'Owner'};
 
 function setLoginRole(role){
   currentRole = role;
@@ -916,7 +916,7 @@ function setLoginRole(role){
 }
 
 function doLogin(){
-  currentUser = currentRole==='owner' ? {name:'Arjun Mehta',role:'Owner'} : {name:'Ravi Kumar',role:'Employee'};
+  currentUser = currentRole==='owner' ? {name:'Rasheed',role:'Owner'} : {name:'Ravi Kumar',role:'Employee'};
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('topAvatar').textContent = currentUser.name.split(' ').map(w=>w[0]).join('').slice(0,2);
