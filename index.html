@@ -580,7 +580,7 @@ tbody tr:last-child td{border-bottom:none;}
         <div class="topbar-rel">
           <button class="profile-btn" onclick="toggleDropdown('profileMenu')">
             <div class="avatar" id="topAvatar">O</div>
-            <div><div class="pname" id="topName">Arjun Mehta</div><div class="prole" id="topRole">Owner</div></div>
+            <div><div class="pname" id="topName">Rasheed</div><div class="prole" id="topRole">Owner</div></div>
           </button>
           <div class="profile-menu" id="profileMenu">
             <a href="#" onclick="navigate('settings');closeAllDropdowns();return false;">👤 My Profile</a>
@@ -1166,17 +1166,7 @@ function renderRevChart(range){
   if(range==='week') data=[0,0,0,0,0,0,0];
   else if(range==='month') data=Array(30).fill(0);
   else data=Array(12).fill(0);
-.k-logo{
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-
-.logo-img{
-    width:50px;
-    height:50px;
-    object-fit:contain;
-}  const w=600,h=220,pad=20;
+  const w=600,h=220,pad=20;
   const max = Math.max(...data), min=Math.min(...data);
   const step = (w-pad*2)/(data.length-1);
   let points = data.map((d,i)=>{
